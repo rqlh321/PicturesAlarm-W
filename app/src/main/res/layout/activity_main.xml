@@ -12,5 +12,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:hint="@string/directory_not_set"
+        android:textSize="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/setDirTextView"
+        android:layout_alignEnd="@+id/setDirButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_directory"
+        android:id="@+id/setDirButton"
+        android:layout_below="@+id/setDirTextView"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
