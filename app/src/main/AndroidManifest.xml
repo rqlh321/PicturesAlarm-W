@@ -17,9 +17,10 @@
         </activity>
         <activity android:name=".OpenDir">
             <intent-filter>
-            <action android:name="android.intent.action.ChooseDirectory"/>
+                <action android:name="android.intent.action.ChooseDirectory" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
