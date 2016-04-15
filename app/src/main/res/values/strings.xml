@@ -13,7 +13,9 @@
 
     <string name="wrong_start">Wrong start time</string>
     <string name="wrong_end">Wrong end time</string>
-    <string name="wrong_folder">Wrong folder</string>
+    <string name="wrong_folder">Folder not selected</string>
+    <string name="wrong_folder_empty">Folder not contains pictures</string>
+
 
 
 </resources>
