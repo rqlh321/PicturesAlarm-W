@@ -1,5 +1,9 @@
 package com.example.sic.slideshow;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -14,14 +18,18 @@ public class ViewActivity extends AppCompatActivity {
     int counter = 0;
     ImageView imageView;
     Show show;
-    long delay;
+    long speed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
+
+        registerReceiver(kill, new IntentFilter("kill"));
+
         imageView= (ImageView) findViewById(R.id.image);
         String url = getIntent().getStringExtra("url");
-        delay = getIntent().getIntExtra("speed", 1);
+        speed = getIntent().getIntExtra("speed", 1);
 
         File mainFile = new File(url);
         FilenameFilter fFilter = new FilenameFilter() {
@@ -42,7 +50,7 @@ public class ViewActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             try {
-                Thread.sleep(delay*1000);
+                Thread.sleep(speed*1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -63,8 +71,6 @@ public class ViewActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        show.cancel(true);
-        finish();
     }
 
     @Override
@@ -72,6 +78,19 @@ public class ViewActivity extends AppCompatActivity {
         super.onBackPressed();
         show.cancel(true);
         finish();
+    }
+
+    private final BroadcastReceiver kill = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onBackPressed();
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(kill);
     }
 }
 

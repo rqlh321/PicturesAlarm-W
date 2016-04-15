@@ -20,7 +20,13 @@
                 <action android:name="android.intent.action.ChooseDirectory" />
             </intent-filter>
         </activity>
-        <activity android:name=".ViewActivity"></activity>
+        <activity android:name=".ViewActivity" />
+
+        <service
+            android:name=".MyService"
+            android:enabled="true"
+            android:exported="true" />
+
     </application>
 
 </manifest>

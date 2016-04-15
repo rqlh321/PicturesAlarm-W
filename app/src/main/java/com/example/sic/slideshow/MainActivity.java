@@ -1,12 +1,10 @@
 package com.example.sic.slideshow;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
@@ -15,58 +13,58 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Date;
-import java.util.Formatter;
 
 public class MainActivity extends AppCompatActivity {
     EditText setDirText;
-    Button setDirButton;
-    Button startService;
-    NumberPicker numberPicker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setDirText= (EditText) findViewById(R.id.setDirTextView);
-        setDirButton= (Button) findViewById(R.id.setDirButton);
-        startService= (Button) findViewById(R.id.startService);
+        setDirText = (EditText) findViewById(R.id.setDirTextView);
+        final Button setDirButton = (Button) findViewById(R.id.setDirButton);
+        final Button startService = (Button) findViewById(R.id.startService);
+        final NumberPicker numberPicker = (NumberPicker) findViewById(R.id.intervalNumber);
+        final TimePicker tpStart = (TimePicker) findViewById(R.id.startTime);
+        final TimePicker tpEnd = (TimePicker) findViewById(R.id.endTime);
 
-        final TimePicker tpStart= (TimePicker) findViewById(R.id.startTime);
-        final TimePicker tpEnd= (TimePicker) findViewById(R.id.endTime);
+        assert tpStart != null;
         tpStart.setIs24HourView(true);
         tpStart.setCurrentHour((new Date()).getHours());
+
+        assert tpEnd != null;
         tpEnd.setIs24HourView(true);
         tpEnd.setCurrentHour((new Date()).getHours());
 
-        numberPicker= (NumberPicker) findViewById(R.id.intervalNumber);
+        assert numberPicker != null;
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(60);
         numberPicker.setValue(1);
 
+        assert setDirButton != null;
         setDirButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,OpenDir.class);
+                Intent intent = new Intent(MainActivity.this, OpenDir.class);
                 startActivityForResult(intent, 1);
             }
         });
 
+        assert startService != null;
         startService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!setDirText.getText().toString().isEmpty()) {
+                if (!setDirText.getText().toString().isEmpty()) {
                     File mainFile = new File(setDirText.getText().toString());
                     FilenameFilter fFilter = new FilenameFilter() {
                         @Override
                         public boolean accept(File file, String s) {
-                            if (s.contains(".jpg")) {
-                                return true;
-                            }
-                            return false;
+                            return s.contains(".jpg");
                         }
                     };
                     File[] files = mainFile.listFiles(fFilter);
-                    if ((files.length>0)&&(files!=null)) {
+                    if ((files != null) && (files.length > 0)) {
                         Date start = new Date();
                         start.setHours(tpStart.getCurrentHour());
                         start.setMinutes(tpStart.getCurrentMinute());
@@ -76,13 +74,13 @@ public class MainActivity extends AppCompatActivity {
                         Date currentDate = new Date();
                         if (start.after(currentDate)) {
                             if (end.after(start)) {
-                                Toast.makeText(MainActivity.this, R.string.start_service, Toast.LENGTH_SHORT).show();
-                                //
-                                Intent intent = new Intent(MainActivity.this, ViewActivity.class);
+                                Intent intent = new Intent(MainActivity.this, MyService.class);
                                 intent.putExtra("url", setDirText.getText().toString())
-                                        .putExtra("speed",numberPicker.getValue());
-                                setResult(Activity.RESULT_OK, intent);
-                                startActivityForResult(intent, 1);
+                                        .putExtra("speed", numberPicker.getValue())
+                                        .putExtra("timeToStart", tpStart.getCurrentHour() * 3600 + tpStart.getCurrentMinute() * 60)
+                                        .putExtra("timeToStop", tpEnd.getCurrentHour() * 3600 + tpEnd.getCurrentMinute() * 60);
+                                startService(intent);
+                                Toast.makeText(MainActivity.this, R.string.start_service, Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(MainActivity.this, R.string.wrong_end, Toast.LENGTH_SHORT).show();
                             }
@@ -92,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(MainActivity.this, R.string.wrong_folder_empty, Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(MainActivity.this, R.string.wrong_folder, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -100,9 +98,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (data == null) {return;}
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) {
+            return;
+        }
         String url = data.getStringExtra("url");
         setDirText.setText(url);
     }
