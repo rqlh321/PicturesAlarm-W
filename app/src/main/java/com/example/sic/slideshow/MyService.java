@@ -59,9 +59,9 @@ public class MyService extends Service {
         IntentFilter charging = new IntentFilter(Intent.ACTION_POWER_CONNECTED);
         IntentFilter reboot = new IntentFilter(Intent.ACTION_BOOT_COMPLETED);
 
-        registerReceiver(justShow, charging);
+        registerReceiver(checkCharging, charging);
         registerReceiver(checkTime, mTime);
-        registerReceiver(justShow, reboot);
+        registerReceiver(checkBoot, reboot);
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -83,7 +83,17 @@ public class MyService extends Service {
         }
     };
 
-    private BroadcastReceiver justShow = new BroadcastReceiver() {
+    private BroadcastReceiver checkCharging = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context c, Intent i) {
+            Intent intentForView = new Intent(MyService.this, ViewActivity.class);
+            intentForView.putExtra("url", url)
+                    .putExtra("speed", speed);
+            intentForView.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intentForView);
+        }
+    };
+    private BroadcastReceiver checkBoot = new BroadcastReceiver() {
         @Override
         public void onReceive(Context c, Intent i) {
             Intent intentForView = new Intent(MyService.this, ViewActivity.class);
@@ -98,6 +108,7 @@ public class MyService extends Service {
     public void onDestroy() {
         super.onDestroy();
         unregisterReceiver(checkTime);
-        unregisterReceiver(justShow);
+        unregisterReceiver(checkBoot);
+        unregisterReceiver(checkCharging);
     }
 }

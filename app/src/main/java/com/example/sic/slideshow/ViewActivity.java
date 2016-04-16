@@ -35,7 +35,7 @@ public class ViewActivity extends AppCompatActivity {
         FilenameFilter fFilter = new FilenameFilter() {
             @Override
             public boolean accept(File file, String s) {
-                    return (s.contains(".jpg"));
+                return s.substring(s.length()-4).equals(".jpg");
             }
         };
         files = mainFile.listFiles(fFilter);

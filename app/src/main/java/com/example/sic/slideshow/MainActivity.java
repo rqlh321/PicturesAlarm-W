@@ -56,15 +56,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!setDirText.getText().toString().isEmpty()) {
-                    File mainFile = new File(setDirText.getText().toString());
-                    FilenameFilter fFilter = new FilenameFilter() {
-                        @Override
-                        public boolean accept(File file, String s) {
-                            return s.contains(".jpg");
-                        }
-                    };
-                    File[] files = mainFile.listFiles(fFilter);
-                    if ((files != null) && (files.length > 0)) {
                         Date start = new Date();
                         start.setHours(tpStart.getCurrentHour());
                         start.setMinutes(tpStart.getCurrentMinute());
@@ -80,16 +71,13 @@ public class MainActivity extends AppCompatActivity {
                                         .putExtra("timeToStart", tpStart.getCurrentHour() * 3600 + tpStart.getCurrentMinute() * 60)
                                         .putExtra("timeToStop", tpEnd.getCurrentHour() * 3600 + tpEnd.getCurrentMinute() * 60);
                                 startService(intent);
-                                Toast.makeText(MainActivity.this, R.string.start_service, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, R.string.start, Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(MainActivity.this, R.string.wrong_end, Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(MainActivity.this, R.string.wrong_start, Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(MainActivity.this, R.string.wrong_folder_empty, Toast.LENGTH_SHORT).show();
-                    }
                 } else {
                     Toast.makeText(MainActivity.this, R.string.wrong_folder, Toast.LENGTH_SHORT).show();
                 }
