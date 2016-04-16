@@ -71,11 +71,6 @@ public class ViewActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
         show.cancel(true);
         finish();
     }

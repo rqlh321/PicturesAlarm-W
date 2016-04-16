@@ -57,7 +57,7 @@ public class MyService extends Service {
 
         IntentFilter mTime = new IntentFilter(Intent.ACTION_TIME_TICK);
         IntentFilter charging = new IntentFilter(Intent.ACTION_POWER_CONNECTED);
-        IntentFilter reboot = new IntentFilter(Intent.ACTION_REBOOT);
+        IntentFilter reboot = new IntentFilter(Intent.ACTION_BOOT_COMPLETED);
 
         registerReceiver(justShow, charging);
         registerReceiver(checkTime, mTime);
