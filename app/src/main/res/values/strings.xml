@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SlideShow</string>
-    <string name="directory_not_set">Source folder</string>
-    <string name="set_directory">Set</string>
+    <string name="directory_not_set">Source folder not selected</string>
+    <string name="set_directory">Choose directory</string>
     <string name="open_go">Choose this directory</string>
     <string name="open_back">Back</string>
     <string name="date_action">Date of the action</string>

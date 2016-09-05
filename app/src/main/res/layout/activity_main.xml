@@ -1,94 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    class="com.example.sic.slideshow.Fragments.SettingsFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.sic.slideshow.MainActivity">
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/relativeLayout2">
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/directory_not_set"
-            android:textSize="14sp"
 
-            android:id="@+id/setDirTextView"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="@string/set_directory"
-            android:id="@+id/setDirButton"
-            android:layout_alignParentRight="true"/>
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:id="@+id/relativeLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/relativeLayout2"
-        android:background="@android:color/holo_blue_dark"
-        >
-        <TextView
-            android:layout_alignParentTop="true"
-            android:id="@+id/startTextView"
-            android:textSize="14sp"
-            android:text="@string/start_action"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TimePicker
-            android:background="@android:color/holo_blue_bright"
-            android:layout_below="@id/startTextView"
-            android:id="@+id/startTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_toEndOf="@id/startTime"
-            android:id="@+id/endTextView"
-            android:textSize="14sp"
-            android:text="@string/end_action"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TimePicker
-            android:background="@android:color/holo_blue_bright"
-
-            android:id="@+id/endTime"
-            android:layout_below="@id/startTextView"
-            android:layout_toEndOf="@id/startTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/interval"
-            android:text="@string/interval"
-            android:layout_below="@id/startTime"/>
-        <NumberPicker
-            android:id="@+id/intervalNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/interval"/>
-        <Button
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@id/intervalNumber"
-            android:layout_margin="@dimen/activity_vertical_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="@string/start_service"
-            android:id="@+id/startService" />
-    </RelativeLayout>
-
-</RelativeLayout>
+</FrameLayout>

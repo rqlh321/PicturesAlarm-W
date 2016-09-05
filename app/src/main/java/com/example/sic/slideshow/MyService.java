@@ -12,7 +12,7 @@ import java.util.Date;
 
 public class MyService extends Service {
     public static final String APP_PREFERENCES = "mySettings";
-    public static final String APP_PREFERENCES_URL = "url";
+    public static final String APP_PREFERENCES_ID = "id";
     public static final String APP_PREFERENCES_START = "startTime";
     public static final String APP_PREFERENCES_END = "endTime";
     public static final String APP_PREFERENCES_SPEED = "speed";
@@ -21,9 +21,44 @@ public class MyService extends Service {
 
     int endTime;
     int startTime;
-    String url;
+    String id;
     int speed;
-
+    private BroadcastReceiver checkTime = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context c, Intent i) {
+            int currentTime = ((new Date()).getHours() * 3600 + (new Date()).getMinutes() * 60);
+            if (currentTime == startTime) {
+                Intent intentForView = new Intent(MyService.this, ViewActivity.class);
+                intentForView.putExtra(APP_PREFERENCES_ID, id)
+                        .putExtra(APP_PREFERENCES_SPEED, speed)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intentForView);
+            }
+            if (currentTime == endTime) {
+                sendBroadcast(new Intent("kill"));
+            }
+        }
+    };
+    private BroadcastReceiver checkCharging = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context c, Intent i) {
+            Intent intentForView = new Intent(MyService.this, ViewActivity.class);
+            intentForView.putExtra(APP_PREFERENCES_ID, id)
+                    .putExtra(APP_PREFERENCES_SPEED, speed)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intentForView);
+        }
+    };
+    private BroadcastReceiver checkBoot = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context c, Intent i) {
+            Intent intentForView = new Intent(MyService.this, ViewActivity.class);
+            intentForView.putExtra(APP_PREFERENCES_ID, id)
+                    .putExtra(APP_PREFERENCES_SPEED, speed);
+            intentForView.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intentForView);
+        }
+    };
 
     public MyService() {
     }
@@ -44,20 +79,20 @@ public class MyService extends Service {
         super.onCreate();
         if (intent != null) {
             SharedPreferences.Editor editor = mSettings.edit();
-            editor.putString(APP_PREFERENCES_URL, intent.getStringExtra("url"));
-            editor.putInt(APP_PREFERENCES_START, intent.getIntExtra("timeToStart", 0));
-            editor.putInt(APP_PREFERENCES_END, intent.getIntExtra("timeToStop", 0));
-            editor.putInt(APP_PREFERENCES_SPEED, intent.getIntExtra("speed", 1));
+            editor.putString(APP_PREFERENCES_ID, intent.getStringExtra(APP_PREFERENCES_ID));
+            editor.putInt(APP_PREFERENCES_START, intent.getIntExtra(APP_PREFERENCES_START, 0));
+            editor.putInt(APP_PREFERENCES_END, intent.getIntExtra(APP_PREFERENCES_END, 0));
+            editor.putInt(APP_PREFERENCES_SPEED, intent.getIntExtra(APP_PREFERENCES_SPEED, 1));
             editor.apply();
         }
-        url = mSettings.getString(APP_PREFERENCES_URL, "");
+        id = mSettings.getString(APP_PREFERENCES_ID, "");
         startTime = mSettings.getInt(APP_PREFERENCES_START, 0);
         endTime = mSettings.getInt(APP_PREFERENCES_END, 0);
         speed = mSettings.getInt(APP_PREFERENCES_SPEED, 1);
 
         IntentFilter mTime = new IntentFilter(Intent.ACTION_TIME_TICK);
         IntentFilter charging = new IntentFilter(Intent.ACTION_POWER_CONNECTED);
-        IntentFilter reboot = new IntentFilter(Intent.ACTION_BOOT_COMPLETED);
+        IntentFilter reboot = new IntentFilter(Intent.ACTION_REBOOT);
 
         registerReceiver(checkCharging, charging);
         registerReceiver(checkTime, mTime);
@@ -65,44 +100,6 @@ public class MyService extends Service {
 
         return super.onStartCommand(intent, flags, startId);
     }
-
-    private BroadcastReceiver checkTime = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context c, Intent i) {
-            int currentTime = ((new Date()).getHours() * 3600 + (new Date()).getMinutes() * 60);
-            if (currentTime == startTime) {
-                Intent intentForView = new Intent(MyService.this, ViewActivity.class);
-                intentForView.putExtra("url", url)
-                        .putExtra("speed", speed);
-                intentForView.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intentForView);
-            }
-            if (currentTime == endTime) {
-                sendBroadcast(new Intent("kill"));
-            }
-        }
-    };
-
-    private BroadcastReceiver checkCharging = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context c, Intent i) {
-            Intent intentForView = new Intent(MyService.this, ViewActivity.class);
-            intentForView.putExtra("url", url)
-                    .putExtra("speed", speed);
-            intentForView.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intentForView);
-        }
-    };
-    private BroadcastReceiver checkBoot = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context c, Intent i) {
-            Intent intentForView = new Intent(MyService.this, ViewActivity.class);
-            intentForView.putExtra("url", url)
-                    .putExtra("speed", speed);
-            intentForView.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intentForView);
-        }
-    };
 
     @Override
     public void onDestroy() {
