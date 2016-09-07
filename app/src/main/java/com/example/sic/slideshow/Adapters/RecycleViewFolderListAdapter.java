@@ -1,9 +1,8 @@
 package com.example.sic.slideshow.Adapters;
 
-import android.os.Bundle;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.sic.slideshow.Fragments.SelectFolderFragment;
-import com.example.sic.slideshow.Fragments.SettingsFragment;
+import com.example.sic.slideshow.Fragments.SettingsSecondStepFragment;
+import com.example.sic.slideshow.Activity.MainActivity;
 import com.example.sic.slideshow.R;
 
 import java.util.ArrayList;
@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class RecycleViewFolderListAdapter extends RecyclerView.Adapter<RecycleViewFolderListAdapter.ViewHolder> {
-    static final public String FOLDER_ID = "folderId";
-    static final public String FOLDER_NAME = "name";
     ArrayList<SelectFolderFragment.Album> list = new ArrayList<>();
     FragmentActivity fragmentActivity;
 
@@ -47,11 +45,12 @@ public class RecycleViewFolderListAdapter extends RecyclerView.Adapter<RecycleVi
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SettingsFragment settingsFragment = new SettingsFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString(FOLDER_ID, list.get(position).getId());
-                bundle.putString(FOLDER_NAME, list.get(position).getName());
-                settingsFragment.setArguments(bundle);
+                SharedPreferences mSettings = fragmentActivity.getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = mSettings.edit();
+                editor.putString(MainActivity.APP_PREFERENCES_ID, list.get(position).getId());
+                editor.putString(MainActivity.APP_PREFERENCES_NAME, list.get(position).getName());
+                editor.apply();
+                SettingsSecondStepFragment settingsFragment = new SettingsSecondStepFragment();
                 fragmentActivity.getSupportFragmentManager()
                         .beginTransaction()
                         .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)

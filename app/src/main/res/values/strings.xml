@@ -10,7 +10,12 @@
     <string name="start_action">Start action</string>
     <string name="end_action">End action</string>
     <string name="start_service">Activate</string>
+    <string name="next_setting">Next</string>
     <string name="start">Activated</string>
+
+    <string name="source_folder">Source older: %s</string>
+    <string name="start_time">Start time: %s</string>
+    <string name="end_time">End time: %s</string>
 
     <string name="wrong_start">Wrong start time</string>
     <string name="wrong_end">Wrong end time</string>

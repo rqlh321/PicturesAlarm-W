@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,23 +39,13 @@ public class SelectFolderFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        getActivity().onBackPressed();
-        return super.onOptionsItemSelected(item);
-    }
-
     ArrayList<Album> getGalleryAlbums() {
         ArrayList<Album> list = new ArrayList<>();
         Uri queryUri = MediaStore.Files.getContentUri("external");
         String[] projection = new String[]{MediaStore.Images.Media.BUCKET_ID,
                 MediaStore.Images.Media.DATA,
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
-        String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
-                + MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE
-                + " OR "
-                + MediaStore.Files.FileColumns.MEDIA_TYPE + "="
-                + MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
+        String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "=" + MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
         String sort = MediaStore.Files.FileColumns.DATE_ADDED + " DESC";
 
         Cursor cursor = getContext().getContentResolver().query(queryUri, projection, selection, null, sort);

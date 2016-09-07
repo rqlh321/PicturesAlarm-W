@@ -1,4 +1,4 @@
-package com.example.sic.slideshow;
+package com.example.sic.slideshow.Activity;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -7,11 +7,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.sic.slideshow.Fragments.SelectFolderFragment;
-import com.example.sic.slideshow.Fragments.SettingsFragment;
+import com.example.sic.slideshow.Fragments.SettingsFirstStepFragment;
+import com.example.sic.slideshow.R;
+
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     public static final int READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 2909;
+    public static final String APP_PREFERENCES = "mySettings";
+    public static final String APP_PREFERENCES_ID = "id";
+    static final public String APP_PREFERENCES_NAME = "name";
+    public static final String APP_PREFERENCES_START = "startTime";
+    public static final String APP_PREFERENCES_END = "endTime";
+    public static final String APP_PREFERENCES_SPEED = "speed";
     boolean permissionGranted = false;
+    public static Date beginSlideShow;
+    public static Date endSlideShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
-                    .add(R.id.container, new SettingsFragment())
+                    .add(R.id.container, new SettingsFirstStepFragment())
                     .commit();
         }
     }

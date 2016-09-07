@@ -5,6 +5,7 @@
     class="com.example.sic.slideshow.Fragments.SettingsFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sic.slideshow.MainActivity">
+    android:background="@mipmap/background"
+    tools:context=".Activity.MainActivity">
 
 </FrameLayout>
