@@ -1,5 +1,6 @@
 package com.example.sic.slideshow.Activity;
 
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,13 +13,14 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.example.sic.slideshow.BroadcastReceivers.TimeReceiver;
+import com.example.sic.slideshow.Fragments.SettingsFourthStepFragment;
+import com.example.sic.slideshow.MyService;
 import com.example.sic.slideshow.R;
 
 import java.io.File;
@@ -31,6 +33,9 @@ public class ViewActivity extends AppCompatActivity {
     private final BroadcastReceiver kill = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            stopService(new Intent(ViewActivity.this, MyService.class));
+            NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            mNotifyMgr.cancel(SettingsFourthStepFragment.NOTIFICATION_ID);
             finish();
         }
     };

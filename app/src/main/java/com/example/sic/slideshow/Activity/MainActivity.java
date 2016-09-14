@@ -20,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_START = "startTime";
     public static final String APP_PREFERENCES_END = "endTime";
     public static final String APP_PREFERENCES_SPEED = "speed";
-    boolean permissionGranted = false;
     public static Date beginSlideShow;
     public static Date endSlideShow;
+    boolean permissionGranted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
