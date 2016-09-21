@@ -1,10 +1,10 @@
-package com.example.sic.slideshow.BroadcastReceivers;
+package com.example.sic.slideshow.broadcastReceivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.sic.slideshow.Activity.ViewActivity;
+import com.example.sic.slideshow.activity.ViewActivity;
 
 /**
  * Created by sic on 06.09.2016.

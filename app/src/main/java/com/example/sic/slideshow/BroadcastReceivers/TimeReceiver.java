@@ -1,12 +1,12 @@
-package com.example.sic.slideshow.BroadcastReceivers;
+package com.example.sic.slideshow.broadcastReceivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.example.sic.slideshow.Activity.MainActivity;
-import com.example.sic.slideshow.Activity.ViewActivity;
+import com.example.sic.slideshow.activity.MainActivity;
+import com.example.sic.slideshow.activity.ViewActivity;
 
 import java.util.Date;
 

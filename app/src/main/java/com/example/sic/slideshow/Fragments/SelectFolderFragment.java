@@ -1,4 +1,4 @@
-package com.example.sic.slideshow.Fragments;
+package com.example.sic.slideshow.fragments;
 
 import android.database.Cursor;
 import android.net.Uri;
@@ -9,11 +9,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.sic.slideshow.Adapters.RecycleViewFolderListAdapter;
+import com.example.sic.slideshow.adapters.RecycleViewFolderListAdapter;
 import com.example.sic.slideshow.R;
 
 import java.util.ArrayList;

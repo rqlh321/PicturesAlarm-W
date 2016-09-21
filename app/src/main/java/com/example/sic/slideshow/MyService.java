@@ -5,14 +5,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
 
-import com.example.sic.slideshow.BroadcastReceivers.BootCompletedActionsReceiver;
-import com.example.sic.slideshow.BroadcastReceivers.ChargingActionsReceiver;
-import com.example.sic.slideshow.BroadcastReceivers.TimeReceiver;
+import com.example.sic.slideshow.broadcastReceivers.BootCompletedActionsReceiver;
+import com.example.sic.slideshow.broadcastReceivers.ChargingActionsReceiver;
+import com.example.sic.slideshow.broadcastReceivers.TimeReceiver;
 
 public class MyService extends Service {
-    TimeReceiver timeAction = new TimeReceiver();
-    BootCompletedActionsReceiver rebootAction = new BootCompletedActionsReceiver();
-    ChargingActionsReceiver chargingAction = new ChargingActionsReceiver();
+    private TimeReceiver timeAction = new TimeReceiver();
+    private BootCompletedActionsReceiver rebootAction = new BootCompletedActionsReceiver();
+    private ChargingActionsReceiver chargingAction = new ChargingActionsReceiver();
 
     @Override
     public IBinder onBind(Intent intent) {

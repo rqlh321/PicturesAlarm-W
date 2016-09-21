@@ -1,4 +1,4 @@
-package com.example.sic.slideshow.Fragments;
+package com.example.sic.slideshow.fragments;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -18,7 +18,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sic.slideshow.Activity.MainActivity;
+import com.example.sic.slideshow.activity.MainActivity;
 import com.example.sic.slideshow.MyService;
 import com.example.sic.slideshow.R;
 
@@ -60,6 +60,7 @@ public class SettingsFourthStepFragment extends Fragment {
                     SharedPreferences mSettings = getActivity().getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = mSettings.edit();
                     editor.putInt(MainActivity.APP_PREFERENCES_SPEED, numberPicker.getValue());
+                    editor.putBoolean(MainActivity.APP_PREFERENCES_ENABELE, true);
                     editor.apply();
 
                     Intent intent = new Intent(getContext(), MyService.class);

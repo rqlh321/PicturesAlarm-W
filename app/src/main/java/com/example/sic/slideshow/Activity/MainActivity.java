@@ -1,4 +1,4 @@
-package com.example.sic.slideshow.Activity;
+package com.example.sic.slideshow.activity;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -6,8 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.example.sic.slideshow.Fragments.SelectFolderFragment;
-import com.example.sic.slideshow.Fragments.SettingsFirstStepFragment;
+import com.example.sic.slideshow.fragments.SelectFolderFragment;
+import com.example.sic.slideshow.fragments.SettingsFirstStepFragment;
 import com.example.sic.slideshow.R;
 
 import java.util.Date;
@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_START = "startTime";
     public static final String APP_PREFERENCES_END = "endTime";
     public static final String APP_PREFERENCES_SPEED = "speed";
+    public static final String APP_PREFERENCES_ENABELE = "enable";
     public static Date beginSlideShow;
     public static Date endSlideShow;
     boolean permissionGranted = false;

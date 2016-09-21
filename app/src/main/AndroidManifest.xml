@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activity.SplashActivity"
+            android:name=".activity.SplashActivity"
             android:theme="@style/SplashTheme"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
@@ -23,22 +23,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MainActivity"/>
-        <activity android:name=".Activity.ViewActivity" />
+        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.ViewActivity" />
         <service android:name=".MyService"
             android:enabled="true"
             android:exported="true" />
-        <receiver android:name=".BroadcastReceivers.TimeReceiver"
+        <receiver android:name=".broadcastReceivers.TimeReceiver"
             android:enabled="true"
             android:exported="true"
             android:label="TimeReceiver"/>
 
-        <receiver android:name=".BroadcastReceivers.ChargingActionsReceiver"
+        <receiver android:name=".broadcastReceivers.ChargingActionsReceiver"
             android:enabled="true"
             android:exported="true"
             android:label="ChargingActionsReceiver"/>
 
-        <receiver android:name=".BroadcastReceivers.BootCompletedActionsReceiver"
+        <receiver android:name=".broadcastReceivers.BootCompletedActionsReceiver"
             android:enabled="true"
             android:exported="true"
             android:label="BootCompletedActionsReceiver">

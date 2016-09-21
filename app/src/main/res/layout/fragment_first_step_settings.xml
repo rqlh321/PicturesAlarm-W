@@ -7,10 +7,17 @@
     android:padding="@dimen/activity_vertical_margin">
 
     <Button
-        android:id="@+id/setDirButton"
+        android:id="@+id/action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/set_directory"
+        android:text="@string/setup"
         android:textSize="14sp" />
 
+    <Button
+        android:id="@+id/disable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/disable"
+        android:textSize="14sp"
+        android:visibility="gone" />
 </LinearLayout>

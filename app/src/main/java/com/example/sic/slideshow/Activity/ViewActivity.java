@@ -1,4 +1,4 @@
-package com.example.sic.slideshow.Activity;
+package com.example.sic.slideshow.activity;
 
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -18,10 +18,10 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
-import com.example.sic.slideshow.BroadcastReceivers.TimeReceiver;
-import com.example.sic.slideshow.Fragments.SettingsFourthStepFragment;
 import com.example.sic.slideshow.MyService;
 import com.example.sic.slideshow.R;
+import com.example.sic.slideshow.broadcastReceivers.TimeReceiver;
+import com.example.sic.slideshow.fragments.SettingsFourthStepFragment;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,34 +40,17 @@ public class ViewActivity extends AppCompatActivity {
         }
     };
 
-    public static Bitmap decodeAndResizeFile(File f) {
-        try {
-            // Decode image size
-            BitmapFactory.Options o = new BitmapFactory.Options();
-            o.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(new FileInputStream(f), null, o);
+    public static Bitmap scaleDown(File f, float maxImageSize,
+                                   boolean filter) throws FileNotFoundException {
 
-            // The new size we want to scale to
-            final int REQUIRED_SIZE = 370;
+        Bitmap realImage = BitmapFactory.decodeStream(new FileInputStream(f), null, null);
+        float ratio = Math.min(
+                maxImageSize / realImage.getWidth(),
+                maxImageSize / realImage.getHeight());
+        int width = Math.round(ratio * realImage.getWidth());
+        int height = Math.round(ratio * realImage.getHeight());
 
-            // Find the correct scale value. It should be the power of 2.
-            int width_tmp = o.outWidth, height_tmp = o.outHeight;
-            int scale = 1;
-            while (true) {
-                if (width_tmp / 2 < REQUIRED_SIZE || height_tmp / 2 < REQUIRED_SIZE)
-                    break;
-                width_tmp /= 2;
-                height_tmp /= 2;
-                scale *= 2;
-            }
-
-            // Decode with inSampleSize
-            BitmapFactory.Options o2 = new BitmapFactory.Options();
-            o2.inSampleSize = scale;
-            return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
-        } catch (FileNotFoundException e) {
-        }
-        return null;
+        return Bitmap.createScaledBitmap(realImage, width, height, filter);
     }
 
     @Override
@@ -84,9 +67,14 @@ public class ViewActivity extends AppCompatActivity {
 
         AnimationDrawable animation = new AnimationDrawable();
         for (String picture : pictures) {
-            Bitmap b = decodeAndResizeFile(new File(picture));
-            Drawable drawable = new BitmapDrawable(getResources(), b);
-            animation.addFrame(drawable, speed * 1000);
+            try {
+                Bitmap b = scaleDown(new File(picture), 640, false);
+                Drawable drawable = new BitmapDrawable(getResources(), b);
+                animation.addFrame(drawable, speed * 1000);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
         }
         ImageView imageView = (ImageView) findViewById(R.id.image);
         imageView.setImageDrawable(animation);

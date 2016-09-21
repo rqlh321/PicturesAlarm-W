@@ -1,4 +1,4 @@
-package com.example.sic.slideshow.Fragments;
+package com.example.sic.slideshow.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.sic.slideshow.Activity.MainActivity;
+import com.example.sic.slideshow.activity.MainActivity;
 import com.example.sic.slideshow.R;
 
 import java.util.Date;

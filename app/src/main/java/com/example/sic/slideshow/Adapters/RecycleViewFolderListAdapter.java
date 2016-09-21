@@ -1,4 +1,4 @@
-package com.example.sic.slideshow.Adapters;
+package com.example.sic.slideshow.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.sic.slideshow.Fragments.SelectFolderFragment;
-import com.example.sic.slideshow.Fragments.SettingsSecondStepFragment;
-import com.example.sic.slideshow.Activity.MainActivity;
+import com.example.sic.slideshow.fragments.SelectFolderFragment;
+import com.example.sic.slideshow.fragments.SettingsSecondStepFragment;
+import com.example.sic.slideshow.activity.MainActivity;
 import com.example.sic.slideshow.R;
 
 import java.util.ArrayList;
