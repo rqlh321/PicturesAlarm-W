@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SlideShow</string>
+    <string name="app_name">My Slide Show</string>
     <string name="directory_not_set">Source folder not selected</string>
     <string name="setup">Setup show</string>
     <string name="disable">Disable show</string>
